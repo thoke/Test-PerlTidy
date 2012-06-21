@@ -2,10 +2,10 @@ Test::PerlTidy
 
 To install please follow the following steps:
 
-  perl Build.PL
-  ./Build
-  ./Build test
-  ./Build install
+  perl Makefile.PL
+  make
+  make test
+  make install
 
 During the tests the code checks that all the perl files included with
 the distribution are tidy. If you make any changes please remember to
