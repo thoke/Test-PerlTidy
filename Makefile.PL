@@ -9,9 +9,11 @@ WriteMakefile(
     VERSION_FROM => 'lib/Test/PerlTidy.pm',
     LICENSE      => 'perl',
     PREREQ_PM    => {
+        'Carp'          => '0',
         'File::Finder'  => '0',
         'File::Slurp'   => '0',
         'File::Spec'    => '0',
+        'IO::File'      => '0',
         'parent'        => '0',
         'Perl::Tidy'    => '20031021',
         'Test::Builder' => '0',

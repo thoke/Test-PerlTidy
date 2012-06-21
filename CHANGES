@@ -1,6 +1,17 @@
 CHANGES
 
-20110323 - Add dependency on "parent" for CPANTESTERS
+20120621 -  Fix errors caused by Perl::Tidy::perltidy now disallowing
+            a scalar reference as the "stderr" option.
+
+20120621 -  Some cleanup:
+
+ 1) MANIFEST was missing t/_perltidyrc.txt
+
+ 2) Updated build instructions in README
+
+ 3) Updated .gitignore
+
+20110323 -  Add dependency on "parent" for CPANTESTERS
 
 20110320 -  Resolve several open bugs and feature requests:
 

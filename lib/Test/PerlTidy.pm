@@ -8,15 +8,17 @@ use parent 'Exporter';
 use vars qw( @EXPORT );    ## no critic (Modules::ProhibitAutomaticExportation)
 @EXPORT = qw( run_tests );
 
+use Carp;
 use File::Finder;
 use File::Slurp;
 use File::Spec;
+use IO::File;
 use Perl::Tidy;
 use Test::Builder;
 use Text::Diff;
 
 our $VERSION;
-$VERSION = '20110323';
+$VERSION = '20120621';
 
 my $test = Test::Builder->new;
 
@@ -48,20 +50,24 @@ sub is_file_tidy {
     my $code_to_tidy = load_file($file_to_tidy);
 
     my $tidied_code = q{};
-    my $stderr      = q{};
     my $logfile     = q{};
     my $errorfile   = q{};
+
+    my $stderr_fh = IO::File->new_tmpfile or croak "IO::File->new_tmpfile: $!";
+    $stderr_fh->autoflush(1);
 
     Perl::Tidy::perltidy(
         source      => \$code_to_tidy,
         destination => \$tidied_code,
-        stderr      => \$stderr,
+        stderr      => $stderr_fh,
         logfile     => \$logfile,
         errorfile   => \$errorfile,
         perltidyrc  => $perltidyrc,
     );
 
     # If there were perltidy errors report them and return.
+    $stderr_fh->seek( 0, 0 );
+    my $stderr = read_file($stderr_fh);
     if ($stderr) {
         unless ($MUTE) {
             $test->diag("perltidy reported the following errors:\n");

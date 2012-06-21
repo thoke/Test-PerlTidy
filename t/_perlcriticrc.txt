@@ -29,5 +29,5 @@ verbose = 11
 [-RegularExpressions::RequireLineBoundaryMatching]
 
 [Variables::ProhibitPunctuationVars]
-    allow = $@
+    allow = $@ $!
 
