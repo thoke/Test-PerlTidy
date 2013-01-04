@@ -15,7 +15,7 @@ WriteMakefile(
         'File::Spec'    => '0',
         'IO::File'      => '0',
         'parent'        => '0',
-        'Perl::Tidy'    => '20031021',
+        'Perl::Tidy'    => '20121207',
         'Test::Builder' => '0',
         'Test::More'    => '0',
         'Text::Diff'    => '0'

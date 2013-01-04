@@ -1,5 +1,9 @@
 CHANGES
 
+20130104 -  Fix test errors caused by Perl::Tidy::perltidy v20121207
+            no longer vertically aligning "=~".  Test::PerlTidy now
+            requires Perl::Tidy::perltidy >= v20121207.
+
 20120621 -  Fix errors caused by Perl::Tidy::perltidy now disallowing
             a scalar reference as the "stderr" option.
 
