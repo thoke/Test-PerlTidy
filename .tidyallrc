@@ -1,0 +1,3 @@
+[PerlTidy]
+argv = -npro
+select = {t,lib,scripts}/**/*.{pl,pm,t} {t,lib,scripts}/*.{pl,pm,t}
