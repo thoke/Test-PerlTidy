@@ -19,7 +19,7 @@ use Test::Builder;
 use Text::Diff;
 
 our $VERSION;
-$VERSION = '20130104';
+$VERSION = '20190305';
 
 my $test = Test::Builder->new;
 

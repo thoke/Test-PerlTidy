@@ -1,5 +1,10 @@
 CHANGES
 
+20190305 -  Fix test errors caused by new Perl::Tidy.
+            Apply pull-requests from
+            https://github.com/larryl/Test-PerlTidy/pulls . Thanks to
+            @plicease .
+
 20130104 -  Fix test errors caused by Perl::Tidy::perltidy v20121207
             no longer vertically aligning "=~".  Test::PerlTidy now
             requires Perl::Tidy::perltidy >= v20121207.
