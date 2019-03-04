@@ -22,7 +22,7 @@ WriteMakefile(
     },
     META_MERGE => {
         resources => {
-	    repository  => 'git://github.com/larryl/Test-PerlTidy.git',
+            repository => 'git://github.com/larryl/Test-PerlTidy.git',
         },
     },
 );

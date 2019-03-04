@@ -85,7 +85,7 @@ sub is_file_tidy {
     # Do not worry about trailing newlines.
     #
     $code_to_tidy =~ s/[\r\n]+$//;
-    $tidied_code =~ s/[\r\n]+$//;
+    $tidied_code  =~ s/[\r\n]+$//;
     if ( $code_to_tidy eq $tidied_code ) {
         return 1;
     }
@@ -137,7 +137,7 @@ sub list_files {
       if $OSNAME eq 'MSWin32';
     my @files = $finder->in($path);
 
-    my %keep = map { File::Spec->canonpath($_) => 1 } @files;
+    my %keep     = map { File::Spec->canonpath($_) => 1 } @files;
     my @excluded = ();
 
     foreach my $file ( keys %keep ) {
