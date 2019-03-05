@@ -1,5 +1,11 @@
 CHANGES
 
+20190305.001    2019-03-05
+
+            Minimal versions of PerlTidy and Perl.
+            Convert to Dist-Zilla.
+            Thanks to MANWAR .
+
 20190305    2019-03-05
 
             Fix test errors caused by new Perl::Tidy.
