@@ -126,7 +126,9 @@ sub list_files {
 
     $test->BAIL_OUT(qq{The directory "$path" does not exist}) unless -d $path;
 
-    my $excludes = $args{exclude} || ['blib/'];    # exclude blib by default
+    my $excludes = $args{exclude}
+      || [ $OSNAME eq 'MSWin32' ? qr#^blib[/\\]# : 'blib/' ]
+      ;    # exclude blib by default
 
     $test->BAIL_OUT('exclude should be an array')
       unless ref $excludes eq 'ARRAY';
