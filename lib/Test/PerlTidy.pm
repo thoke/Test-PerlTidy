@@ -11,7 +11,6 @@ use vars qw( @EXPORT );    ## no critic (Modules::ProhibitAutomaticExportation)
 @EXPORT = qw( run_tests );
 
 use Carp;
-use File::Finder;
 use Path::Tiny qw( path );
 use File::Spec;
 use IO::File;
@@ -133,12 +132,10 @@ sub list_files {
     $test->BAIL_OUT('exclude should be an array')
       unless ref $excludes eq 'ARRAY';
 
-    my $finder = File::Finder->type('f')->name(qr{[.](?:pl|pm|PL|t)$});
-    $finder->{options}->{untaint} = 1;
-    $finder->{options}->{untaint_pattern} =
-      qr{^((\p{IsAlphabetic}:)?[-+@\w./~[(][)] ]+)$}x ## no critic (Variables::ProhibitPunctuationVars)
-      if $OSNAME eq 'MSWin32';
-    my @files = $finder->in($path);
+    my @files;
+    path($path)
+      ->visit( sub { push @files, $_ if $_->is_file && /[.](?:pl|pm|PL|t)\z/; },
+        { recurse => 1 } );
 
     my %keep     = map { File::Spec->canonpath($_) => 1 } @files;
     my @excluded = ();
