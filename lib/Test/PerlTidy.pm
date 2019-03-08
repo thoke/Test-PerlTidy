@@ -15,7 +15,7 @@ use File::Finder;
 use Path::Tiny qw( path );
 use File::Spec;
 use IO::File;
-use Perl::Tidy 20181120;
+use Perl::Tidy '20181120';
 use Test::Builder;
 use Text::Diff;
 
@@ -127,7 +127,7 @@ sub list_files {
     $test->BAIL_OUT(qq{The directory "$path" does not exist}) unless -d $path;
 
     my $excludes = $args{exclude}
-      || [ $OSNAME eq 'MSWin32' ? qr#^blib[/\\]# : 'blib/' ]
+      || [ $OSNAME eq 'MSWin32' ? qr{^blib[/\\]} : 'blib/' ]
       ;    # exclude blib by default
 
     $test->BAIL_OUT('exclude should be an array')
