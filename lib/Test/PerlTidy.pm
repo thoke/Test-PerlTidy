@@ -10,16 +10,13 @@ use parent 'Exporter';
 use vars qw( @EXPORT );    ## no critic (Modules::ProhibitAutomaticExportation)
 @EXPORT = qw( run_tests );
 
-use Carp;
+use Carp qw( croak );
 use Path::Tiny qw( path );
-use File::Spec;
-use IO::File;
+use File::Spec ();
+use IO::File   ();
 use Perl::Tidy 20181120;
-use Test::Builder;
-use Text::Diff;
-
-our $VERSION;
-$VERSION = '20190305';
+use Test::Builder ();
+use Text::Diff qw( diff );
 
 my $test = Test::Builder->new;
 
