@@ -43,8 +43,9 @@ sub run_tests {
 }
 
 sub is_file_tidy {
-    my ( $file_to_tidy, $perltidyrc ) = @_;
+    my ( $file_to_tidy, $perltidyrc, $named_args ) = @_;
 
+    $named_args //= { perltidy_options => {}, };
     my $code_to_tidy = load_file($file_to_tidy);
 
     my $tidied_code = q{};
@@ -61,6 +62,7 @@ sub is_file_tidy {
         logfile     => \$logfile,
         errorfile   => \$errorfile,
         perltidyrc  => $perltidyrc,
+        %{ $named_args->{perltidy_options} },
     );
 
     # If there were perltidy errors report them and return.
@@ -320,9 +322,13 @@ Generate the list of files to be tested.  Generally not called directly.
 Load the file to be tested from disk and return the contents.
 Generally not called directly.
 
-=head2 is_file_tidy ( I<path_to_file> [ , I<path_to_perltidyrc> ] )
+=head2 is_file_tidy ( I<path_to_file> [ , I<path_to_perltidyrc> ] [, I<$named_args>] )
 
 Test if a file is tidy or not.  Generally not called directly.
+
+$named_args can be a hash ref which may have a key called 'perltidy_options'
+that refers to a hash ref of options that will be passed to Perl::Tidy::perltidy().
+($named_args was added in version 20200411).
 
 =head1 SEE ALSO
 
