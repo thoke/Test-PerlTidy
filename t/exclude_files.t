@@ -17,10 +17,10 @@ my @wanted_files = sort qw(
   t/is_file_tidy.t
   t/list_files.t
   t/perltidy.t
-  t/strict.t
 );
 
-@wanted_files = map { s/\//\\/g; $_ } @wanted_files if $^O eq 'MSWin32';
+@wanted_files = map { my $ret = $_; $ret =~ s/\//\\/g; $ret } @wanted_files
+  if $^O eq 'MSWin32';
 
 my @found_files = Test::PerlTidy::list_files(
     path    => '.',
@@ -28,4 +28,5 @@ my @found_files = Test::PerlTidy::list_files(
     debug   => 0,
 );
 
+# TEST
 is_deeply( \@wanted_files, \@found_files );
