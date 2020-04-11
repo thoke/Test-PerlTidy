@@ -24,6 +24,10 @@ our $MUTE = 0;
 
 sub run_tests {
     my %args = @_;
+    my @opts;
+    if ( my $perltidy_options = delete( $args{perltidy_options} ) ) {
+        push @opts, +{ perltidy_options => $perltidy_options, };
+    }
 
     # Skip all tests if instructed to.
     $test->skip_all('All tests skipped.') if $args{skip_all};
@@ -36,7 +40,8 @@ sub run_tests {
 
     # Check each file in turn.
     foreach my $file (@files) {
-        $test->ok( is_file_tidy( $file, $args{perltidyrc} ), "'$file'" );
+        $test->ok( is_file_tidy( $file, $args{perltidyrc}, @opts, ),
+            "'$file'" );
     }
 
     return;
@@ -310,6 +315,11 @@ true value to turn off that diagnostic output.
 =item skip_all
 
 Set C<skip_all> to a true value to skip all tests.  Default is false.
+
+=item perltidy_options
+
+Pass these to Perl::Tidy::perltidy().
+(Added in version 20200411 .)
 
 =back
 
