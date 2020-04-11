@@ -17,8 +17,6 @@ my @wanted_files = sort qw(
   t/is_file_tidy.t
   t/list_files.t
   t/perltidy.t
-  t/pod-coverage.t
-  t/pod.t
   t/strict.t
 );
 
