@@ -11,7 +11,7 @@ use vars qw( @EXPORT );    ## no critic (Modules::ProhibitAutomaticExportation)
 @EXPORT = qw( run_tests );
 
 use Carp qw( croak );
-use Path::Tiny qw( path );
+use Path::Tiny 0.100 qw( path );
 use File::Spec ();
 use IO::File   ();
 use Perl::Tidy 20181120;

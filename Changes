@@ -1,5 +1,11 @@
 CHANGES
 
+20200412        2020-04-12
+
+            * https://github.com/shlomif/Test-PerlTidy/issues/4
+                * Set minimum version of Path::Tiny for its ->visit() method
+                * Thanks to @eserte / SREZIC for the report
+
 20200411        2020-04-11
 
             * https://github.com/shlomif/Test-PerlTidy/issues/3
