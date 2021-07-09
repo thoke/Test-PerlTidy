@@ -344,7 +344,7 @@ that refers to a hash ref of options that will be passed to Perl::Tidy::perltidy
 
 L<Perl::Tidy>
 
-=head1 AUTHOR
+=head1 ORIGINAL AUTHOR
 
 Edmund von der Burg, C<< <evdb at ecclestoad.co.uk> >>
 
@@ -355,6 +355,8 @@ Duncan J. Ferguson, C<< <duncan_j_ferguson at yahoo.co.uk> >>
 Stephen, C<< <stephen at enterity.com> >>
 
 Larry Leszczynski, C<< <larryl at cpan.org> >>
+
+Shlomi Fish, L<https://www.shlomifish.org/>
 
 =head1 SUGGESTIONS
 
