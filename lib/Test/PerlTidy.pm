@@ -14,7 +14,7 @@ use Carp             qw( croak );
 use Path::Tiny 0.100 qw( path );
 use File::Spec       ();
 use IO::File         ();
-use Perl::Tidy 20201001;
+use Perl::Tidy 20220613;
 use Test::Builder ();
 use Text::Diff    qw( diff );
 
