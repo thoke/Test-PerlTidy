@@ -136,28 +136,24 @@ sub list_files {
     $test->BAIL_OUT('exclude should be an array')
       unless ref $excludes eq 'ARRAY';
 
-    my @files;
-    path($path)
-      ->visit( sub { push @files, $_ if $_->is_file && /[.](?:pl|pm|PL|t)\z/; },
-        { recurse => 1 } );
-
-    my %keep     = map { File::Spec->canonpath($_) => 1 } @files;
     my @excluded = ();
-
-    foreach my $file ( keys %keep ) {
-
-        foreach my $exclude ( @{$excludes} ) {
-
-            my $exclude_me =
-              ref $exclude ? ( $file =~ $exclude ) : ( $file =~ /^$exclude/ );
-
-            if ($exclude_me) {
-                delete $keep{$file};
-                push @excluded, $file if $args{debug};
-                last;    # no need to check more exclusions...
+    my @files;
+    path($path)->visit(
+        sub {
+            my $exclude_me;
+            foreach my $exclude ( @{$excludes} ) {
+                $exclude_me =
+                  ref $exclude ? ( $_ =~ $exclude ) : ( $_ =~ /^$exclude/ );
+                push @excluded, $_ if $args{debug};
+                last if $exclude_me;    # no need to check more exclusions...
             }
-        }
-    }
+            return if $exclude_me;
+            push @files, $_ if $_->is_file && /[.](?:pl|pm|PL|t)\z/;
+        },
+        { recurse => 1 }
+    );
+
+    my %keep = map { File::Spec->canonpath($_) => 1 } @files;
 
     # Sort the output so that it is repeatable
     @files = sort keys %keep;
