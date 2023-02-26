@@ -137,7 +137,7 @@ sub list_files {
       unless ref $excludes eq 'ARRAY';
 
     my @excluded = ();
-    my @files;
+    my @filenames;
     path($path)->visit(
         sub {
             my $fn = $_;
@@ -152,23 +152,23 @@ sub list_files {
             }
             return if $exclude_me;
             if ( $fn->is_file && ( $fn =~ /[.](?:pl|pm|PL|t)\z/ ) ) {
-                push @files, $fn;
+                push @filenames, $fn;
             }
         },
         { recurse => 1 }
     );
 
-    my %keep = map { File::Spec->canonpath($_) => 1 } @files;
+    my %keep = map { File::Spec->canonpath($_) => 1 } @filenames;
 
     # Sort the output so that it is repeatable
-    @files = sort keys %keep;
+    @filenames = sort keys %keep;
 
     if ( $args{debug} ) {
         $test->diag( 'Files excluded: ', join( "\n\t", sort @excluded ), "\n" );
-        $test->diag( 'Files remaining ', join( "\n\t", @files ),         "\n" );
+        $test->diag( 'Files remaining ', join( "\n\t", @filenames ),     "\n" );
     }
 
-    return @files;
+    return @filenames;
 }
 
 sub load_file {
