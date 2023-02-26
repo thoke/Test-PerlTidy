@@ -140,15 +140,20 @@ sub list_files {
     my @files;
     path($path)->visit(
         sub {
+            my $fn = $_;
             my $exclude_me;
+          EXCLUDES:
             foreach my $exclude ( @{$excludes} ) {
                 $exclude_me =
-                  ref $exclude ? ( $_ =~ $exclude ) : ( $_ =~ /^$exclude/ );
-                push @excluded, $_ if $args{debug};
-                last if $exclude_me;    # no need to check more exclusions...
+                  ref $exclude ? ( $fn =~ $exclude ) : ( $fn =~ /\A$exclude/ );
+                push @excluded, $fn if $args{debug};
+                last EXCLUDES
+                  if $exclude_me;    # no need to check more exclusions...
             }
             return if $exclude_me;
-            push @files, $_ if $_->is_file && /[.](?:pl|pm|PL|t)\z/;
+            if ( $fn->is_file && ( $fn =~ /[.](?:pl|pm|PL|t)\z/ ) ) {
+                push @files, $fn;
+            }
         },
         { recurse => 1 }
     );
