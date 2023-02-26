@@ -105,7 +105,7 @@ sub is_file_tidy {
 }
 
 sub list_files {
-    my (@args) = @_;
+    my (@params) = @_;
 
     my %args;
     my $path;
@@ -116,13 +116,13 @@ sub list_files {
     # backward compatibility with Test::PerlTidy::list_files, on the
     # off chance that someone was calling it directly...
     #
-    if ( @args > 1 ) {
-        %args = @args;
+    if ( @params > 1 ) {
+        %args = @params;
         $path = $args{path};
     }
     else {
         %args = ();
-        $path = $args[0];
+        $path = $params[0];
     }
 
     $path ||= q{.};
@@ -136,6 +136,11 @@ sub list_files {
     $test->BAIL_OUT('exclude should be an array')
       unless ref $excludes eq 'ARRAY';
 
+    foreach my $exclude (@$excludes) {
+        if ( not ref($exclude) ) {
+            $exclude = qr/\A$exclude/;
+        }
+    }
     my $DEBUG    = ( $args{debug} // '' );
     my @excluded = ();
     my @filenames;
@@ -145,8 +150,7 @@ sub list_files {
             my $exclude_me;
           EXCLUDES:
             foreach my $exclude ( @{$excludes} ) {
-                $exclude_me =
-                  ref $exclude ? ( $fn =~ $exclude ) : ( $fn =~ /\A$exclude/ );
+                $exclude_me = ( $fn =~ $exclude );
                 push @excluded, $fn if $DEBUG;
                 last EXCLUDES
                   if $exclude_me;    # no need to check more exclusions...
