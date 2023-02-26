@@ -136,6 +136,7 @@ sub list_files {
     $test->BAIL_OUT('exclude should be an array')
       unless ref $excludes eq 'ARRAY';
 
+    my $DEBUG    = ( $args{debug} // '' );
     my @excluded = ();
     my @filenames;
     path($path)->visit(
@@ -146,7 +147,7 @@ sub list_files {
             foreach my $exclude ( @{$excludes} ) {
                 $exclude_me =
                   ref $exclude ? ( $fn =~ $exclude ) : ( $fn =~ /\A$exclude/ );
-                push @excluded, $fn if $args{debug};
+                push @excluded, $fn if $DEBUG;
                 last EXCLUDES
                   if $exclude_me;    # no need to check more exclusions...
             }
@@ -163,7 +164,7 @@ sub list_files {
     # Sort the output so that it is repeatable
     @filenames = sort keys %keep;
 
-    if ( $args{debug} ) {
+    if ($DEBUG) {
         $test->diag( 'Files excluded: ', join( "\n\t", sort @excluded ), "\n" );
         $test->diag( 'Files remaining ', join( "\n\t", @filenames ),     "\n" );
     }
