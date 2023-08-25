@@ -183,7 +183,7 @@ sub load_file {
     return unless -f $filename;
 
     # Slurp the file.
-    my $content = path($filename)->slurp_utf8;
+    my $content = path($filename)->slurp;
     return $content;
 }
 
